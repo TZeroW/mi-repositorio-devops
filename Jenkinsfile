@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Construye la imagen usando el Dockerfile de la raíz
-                    sh 'docker build -t mi-flask-app:latest .'
+                    bat 'docker build -t mi-flask-app:latest .'
                 }
             }
         }
@@ -20,16 +20,16 @@ pipeline {
         stage('Test Local') {
             steps {
                 // Levanta el contenedor para ver si responde
-                sh 'docker-compose up -d'
-                sh 'sleep 5 && curl http://localhost:5000'
-                sh 'docker-compose down'
+                bat 'docker-compose up -d'
+                bat 'sleep 5 && curl http://localhost:5000'
+                bat 'docker-compose down'
             }
         }
 
         stage('Deploy') {
             steps {
                 // Aquí defines dónde se despliega (ej: produccion)
-                sh 'docker-compose up -d --build'
+                bat 'docker-compose up -d --build'
             }
         }
     }
